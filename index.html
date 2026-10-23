@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="ms"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Susun Bersama Keluarga</title>
+<style>
+:root{--bg:#fff3dc;--card:#fffdf8;--ink:#3a2d22;--ac:#ff8a4c;--ok:#3fae7a;--line:#cfae83;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#221a14;--card:#33271e;--ink:#f6e9d8;--line:#7a6048}}
+:root[data-theme="dark"]{--bg:#221a14;--card:#33271e;--ink:#f6e9d8;--line:#7a6048}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Chalkboard SE","Comic Sans MS",system-ui,sans-serif;-webkit-user-select:none;user-select:none;min-height:100vh}
+.wrap{max-width:520px;margin:0 auto;padding:12px 14px 30px}
+header{display:flex;align-items:center;gap:8px;justify-content:space-between}
+h1{font-size:19px;margin:0}
+.ib{border:0;background:var(--card);color:var(--ink);font-size:22px;width:44px;height:44px;border-radius:14px;box-shadow:0 2px 0 var(--line)}
+.ib.off{opacity:.4}
+.btn{border:0;background:var(--ac);color:#fff;font:inherit;font-size:18px;padding:12px 22px;border-radius:16px;box-shadow:0 3px 0 #c9602b}
+.btn.g{background:var(--ok);box-shadow:0 3px 0 #2a7f58}
+#menu .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.lv{background:var(--card);color:var(--ink);border:3px solid var(--line);border-radius:18px;padding:12px 6px;font:inherit;font-size:15px;text-align:center}
+.lv b{display:block;font-size:34px}.lv small{display:block;min-height:18px}
+#msg{background:var(--card);border-radius:16px;padding:10px 14px;margin:10px 0;font-size:17px;min-height:46px;box-shadow:0 2px 0 var(--line)}
+#stage{display:flex;flex-direction:column;align-items:center;gap:18px;padding:6px 0}
+#stage.v{flex-direction:row;justify-content:center;align-items:flex-start}
+#board{display:flex;gap:10px;align-items:flex-end;justify-content:center;flex-wrap:wrap;width:100%}
+#stage.v #board{flex-direction:column;align-items:center;width:auto;flex-wrap:nowrap}
+#board.grid{display:grid;gap:0;width:auto;border-radius:12px;overflow:hidden;border:3px solid var(--line)}
+#tray{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;background:var(--card);border-radius:18px;padding:12px;width:100%;box-sizing:border-box;min-height:90px}
+#stage.v #tray{flex-direction:column;width:auto;flex-wrap:nowrap}
+.slot{box-sizing:border-box;display:flex;align-items:center;justify-content:center;border:3px dashed var(--line);border-radius:16px;line-height:1;background:rgba(207,174,131,.12)}
+.slot.full{border:0;background:none}
+#board.col{flex-direction:column;align-items:center;flex-wrap:nowrap;gap:4px}
+.gh{opacity:.22;filter:grayscale(1);font-style:normal}
+.bin{flex:1;flex-direction:column;justify-content:flex-start;min-height:150px;font-size:16px;padding:6px;align-items:stretch;text-align:center}
+.bin .in{display:flex;flex-wrap:wrap;justify-content:center;gap:2px}
+.tok{box-sizing:border-box;display:flex;align-items:center;justify-content:center;line-height:1;touch-action:none;cursor:grab}
+.tok svg,.slot svg,.cell svg{display:block}
+.cell{line-height:0}
+.shake{animation:sh .35s}@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+#win{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:50}
+#win[hidden],#menu[hidden],#game[hidden]{display:none}
+#win div{background:var(--card);border-radius:24px;padding:26px;text-align:center;font-size:20px;max-width:300px}
+#win .st{font-size:44px;margin:8px 0}#win .btn{margin:6px}
+:root{--bg:#bfe9ff;--card:#fff;--ink:#2b2a6b;--line:#ff9f1c;--g1:#6fd0ff;--g2:#fff3b0}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2a2f7a;--card:#fffdf4;--ink:#2b2a6b;--line:#ff9f1c;--g1:#2a3a9c;--g2:#6a4bc4}}
+:root[data-theme="dark"]{--bg:#2a2f7a;--card:#fffdf4;--ink:#2b2a6b;--line:#ff9f1c;--g1:#2a3a9c;--g2:#6a4bc4}
+body{background:linear-gradient(var(--g1),var(--g2)) fixed;font-family:"Arial Rounded MT Bold","Chalkboard SE","Comic Sans MS",system-ui,sans-serif;font-weight:700}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle,rgba(255,255,255,.55) 3px,transparent 4px) 0 0/46px 46px;opacity:.5}
+.wrap{position:relative}
+h1{font-size:22px;line-height:1.1;color:#fff;letter-spacing:.5px;-webkit-text-stroke:2px #1b3a8a;paint-order:stroke fill;text-shadow:0 2px 0 #1b3a8a,0 4px 0 #17307a,0 6px 0 #122766,0 9px 8px rgba(0,0,0,.35);transform:rotate(-1.5deg)}
+.ib{background:linear-gradient(#ffe066,#ffb703);border:3px solid #fff;box-shadow:0 5px 0 #c97d00,0 8px 8px rgba(0,0,0,.2);transition:transform .08s}
+.ib:active,.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #c97d00}
+.btn{font-size:21px;font-weight:900;border:3px solid #fff;background:linear-gradient(#ffa24d,#ff6b2c);box-shadow:0 6px 0 #b8400f,0 9px 10px rgba(0,0,0,.25);text-shadow:0 2px 0 rgba(0,0,0,.3)}
+.btn.g{background:linear-gradient(#6be08f,#22b35c);box-shadow:0 6px 0 #11763a,0 9px 10px rgba(0,0,0,.25)}
+#msg0{color:#fff;text-shadow:0 2px 0 #1b3a8a,0 3px 4px rgba(0,0,0,.3);font-size:18px}
+.lv{color:#fff;border:4px solid #fff;border-radius:22px;font-weight:900;text-shadow:0 2px 0 rgba(0,0,0,.35),0 3px 5px rgba(0,0,0,.2);box-shadow:0 7px 0 rgba(0,0,0,.28),0 10px 12px rgba(0,0,0,.2);transition:transform .08s;background:#ffb703}
+.lv:active{transform:translateY(5px);box-shadow:0 2px 0 rgba(0,0,0,.28)}
+.lv b{font-size:44px;filter:drop-shadow(0 4px 2px rgba(0,0,0,.3))}
+.lv:nth-child(6n+1){background:linear-gradient(#ffe066,#ffb703)}.lv:nth-child(6n+2){background:linear-gradient(#6fe3d8,#12b5a6)}.lv:nth-child(6n+3){background:linear-gradient(#ffa8c5,#ff5f93)}.lv:nth-child(6n+4){background:linear-gradient(#ffb36b,#ff7a1a)}.lv:nth-child(6n+5){background:linear-gradient(#9be87f,#43b92c)}.lv:nth-child(6n){background:linear-gradient(#c4b0ff,#7c5cf0)}
+#ttl{font-size:22px;color:#fff;-webkit-text-stroke:2px #1b3a8a;paint-order:stroke fill;text-shadow:0 2px 0 #1b3a8a,0 4px 0 #17307a,0 7px 6px rgba(0,0,0,.3)}
+#msg{background:#fff;color:var(--ink);border:4px solid #ff9f1c;border-radius:24px;box-shadow:0 6px 0 #c97d00,0 9px 10px rgba(0,0,0,.2);font-size:18px;font-weight:900}
+#tray{background:linear-gradient(#ffe9a8,#ffd166);border:4px solid #fff;box-shadow:0 7px 0 #d9962b,0 10px 12px rgba(0,0,0,.2);border-radius:24px}
+.slot{border:4px dashed #ff9f1c;background:rgba(255,255,255,.75);box-shadow:inset 0 5px 10px rgba(0,0,0,.18);border-radius:20px}
+.slot.full{box-shadow:none;animation:pop .35s}
+@keyframes pop{50%{transform:scale(1.18)}}
+.tok{filter:drop-shadow(0 7px 3px rgba(0,0,0,.3));text-shadow:0 4px 0 rgba(0,0,0,.15);transition:transform .1s}.tok:active{transform:scale(1.08)}
+.bin{font-weight:900;font-size:19px;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.bin:nth-child(1){background:#ff9a4d;border-color:#fff;border-style:solid;box-shadow:0 6px 0 #c4601a}.bin:nth-child(2){background:#4cc16a;border-color:#fff;border-style:solid;box-shadow:0 6px 0 #2a8a45}
+#win div{border:6px solid #ffb703;box-shadow:0 8px 0 #c97d00;font-weight:900;color:var(--ink);background:#fff}
+#win .st{font-size:54px;animation:bn .8s infinite alternate;filter:drop-shadow(0 4px 2px rgba(0,0,0,.3))}
+@keyframes bn{to{transform:translateY(-10px) scale(1.1)}}
+#board.alm{flex-direction:column;align-items:stretch;flex-wrap:nowrap;gap:8px;background:#c98b4a;border:6px solid #8a5a2b;border-radius:18px;padding:8px;box-shadow:0 8px 0 #5e3a17,0 12px 12px rgba(0,0,0,.25)}
+.shelf{width:100%;flex:none;flex-direction:column;justify-content:flex-start;align-items:stretch;min-height:100px;font-size:16px;padding:6px;text-align:center;color:#4a2a10;font-weight:900;background:#f6dcaa;border:4px solid #8a5a2b;box-shadow:inset 0 -10px 0 #b97c3c}
+.shelf .in{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:2px}
+#stage.room{background:radial-gradient(ellipse at 50% 50%,#f3e3c2 0 50%,#cfae7e 52%);border:4px solid #fff;border-radius:28px;padding:14px 6px;box-shadow:0 7px 0 #a98756,0 10px 12px rgba(0,0,0,.2)}
+#tray0{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;width:100%}#tray0:empty{display:none}
+#tray.floor{background:none;border:0;box-shadow:none;padding:4px;min-height:0}
+#board.cab{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;align-items:stretch;background:#d98b43;border:6px solid #f2c887;border-radius:12px;padding:6px;width:100%;box-sizing:border-box;box-shadow:0 8px 0 #7a4519,0 12px 12px rgba(0,0,0,.3)}
+.cub{flex-direction:column;justify-content:space-between;align-items:center;min-height:110px;padding:4px;font-size:12px;border:3px solid #f2c887;border-radius:6px;background:linear-gradient(#9c5a28,#b97339);box-shadow:inset 0 9px 12px rgba(0,0,0,.4);color:#ffe6bd}
+.cub b{text-shadow:0 1px 0 rgba(0,0,0,.5)}
+.cub .in{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:2px;flex:1}
+</style></head><body><div class="wrap">
+<header><h1>🏠 Susun Bersama Keluarga</h1><div><button class="ib" id="bm" aria-label="Muzik">🎵</button> <button class="ib" id="bs" aria-label="Bunyi">🔊</button> <button class="ib" id="bh" aria-label="Menu">☰</button></div></header>
+<section id="menu"><div id="msg0" style="margin-top:12px;font-size:17px">Pilih tahap untuk bermain bersama Ibu, Ayah dan Adik! Seret objek dengan jari.</div><div class="grid2" id="lvs"></div></section>
+<section id="game" hidden><div id="ttl" style="font-weight:bold;margin-top:8px"></div><div id="msg"></div><div id="stage"><div id="tray0"></div><div id="board"></div><div id="tray"></div></div></section>
+</div>
+<div id="win" hidden><div><div class="st" id="stars"></div><div id="wt">Tahniah!</div><button class="btn g" id="nx">Seterusnya ▶</button><button class="btn" id="mn">Menu</button></div></div>
+<script>
+const $=s=>document.querySelector(s),sh=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]),pick=a=>a[Math.random()*a.length|0];
+let AC,mus=1,sfx=1,mT,cur=0,err=0,slots=[],stars=[];
+const ctx=()=>{if(!AC)AC=new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume();return AC};
+function tone(f,t0,d,ty='sine',v=.15){try{const a=ctx(),o=a.createOscillator(),g=a.createGain(),t=a.currentTime+t0;o.type=ty;o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d+.05)}catch(e){}}
+function fx(k){if(!sfx)return;if(k=='pick')tone(520,0,.1,'triangle');if(k=='ok'){tone(523,0,.12,'triangle');tone(784,.1,.22,'triangle')}if(k=='bad')tone(150,0,.28,'sawtooth',.07);if(k=='win')[523,659,784,1047,1319].forEach((f,i)=>tone(f,i*.13,.3,'triangle'))}
+const N={c:262,d:294,e:330,g:392,a:440,C:523};const MEL='c e g e a g e d c e g C a g e d'.split(' ');
+function startMus(){ctx();if(mT)return;let i=0;mT=setInterval(()=>{if(!mus)return;const n=MEL[i%16];tone(N[n],0,.4,'sine',.05);if(i%4==0)tone(N[n]/2,0,.9,'triangle',.04);i++},430)}
+$('#bm').onclick=e=>{startMus();mus=!mus;e.target.classList.toggle('off',!mus)};
+$('#bs').onclick=e=>{sfx=!sfx;e.target.classList.toggle('off',!sfx)};
+$('#bh').onclick=()=>menu();
+const E=['🧸','🍎','🥛','🪑','👟','🎈'],SZ=[38,58,80,104],K=Math.min(1.1,innerWidth/400),S=k=>SZ[k]*K,F=1.12;
+const PR=['Bagus, adik! 👏','Pandai! ⭐','Hebat! Ibu bangga 💛','Betul! Ayah suka 😄'];
+const PIC=[`<rect width="240" height="240" fill="#bfe6ff"/><circle cx="200" cy="36" r="22" fill="#ffd84d"/><rect y="170" width="240" height="70" fill="#7cc576"/><rect x="60" y="100" width="120" height="75" fill="#ffd59e"/><polygon points="48,102 120,40 192,102" fill="#e86a5a"/><rect x="150" y="55" width="16" height="30" fill="#b5533f"/><rect x="108" y="130" width="26" height="45" rx="4" fill="#8b5a2b"/><rect x="72" y="115" width="28" height="28" fill="#fff" stroke="#6aa0d8" stroke-width="4"/><rect x="148" y="115" width="28" height="28" fill="#fff" stroke="#6aa0d8" stroke-width="4"/><text x="120" y="224" font-size="34" text-anchor="middle">👨‍👩‍👧‍👦</text><text x="20" y="165" font-size="44">🌳</text>`,
+`<rect width="240" height="240" fill="#ffe9c7"/><rect y="170" width="240" height="70" fill="#c89b6d"/><rect x="150" y="26" width="72" height="72" rx="6" fill="#bfe6ff" stroke="#8b5a2b" stroke-width="5"/><line x1="186" y1="26" x2="186" y2="98" stroke="#8b5a2b" stroke-width="4"/><text x="30" y="80" font-size="46">🖼️</text><rect x="20" y="130" width="150" height="55" rx="14" fill="#6aa0d8"/><rect x="30" y="100" width="130" height="45" rx="14" fill="#5a8fc8"/><text x="95" y="150" font-size="44" text-anchor="middle">👨‍👩‍👧‍👦</text><ellipse cx="120" cy="212" rx="90" ry="14" fill="#e86a5a" opacity=".6"/><text x="188" y="218" font-size="36">🐱</text><text x="190" y="150" font-size="38">🪴</text>`];
+const L=[
+{n:'Saiz Sama',i:'👧',m:'match',say:'👧 Adik: Letak barang yang saiznya sama dengan bayang!'},
+{n:'Besar dan Kecil',i:'🧒',m:'bin',say:'👩 Ibu: Masukkan barang besar dan kecil ke bakul yang betul.'},
+{n:'Besar ke Kecil ➡️',i:'👨',m:'ord',d:'h',asc:0,c:3,say:'👨 Ayah: Susun melintang, dari besar ke kecil.'},
+{n:'Kecil ke Besar ➡️',i:'👩',m:'ord',d:'h',asc:1,c:4,say:'👩 Ibu: Susun melintang, dari kecil ke besar.'},
+{n:'Besar ke Kecil ⬇️',i:'👴',m:'ord',d:'v',asc:0,c:3,say:'👴 Atuk: Susun menegak, dari besar ke kecil.'},
+{n:'Kecil ke Besar ⬇️',i:'👵',m:'ord',d:'v',asc:1,c:4,say:'👵 Nenek: Susun menegak, dari kecil ke besar.'},
+{n:'Rumah Kita',i:'🏠',m:'pic',p:0,g:2,ms:[0,3],say:'👧 Adik: Lengkapkan gambar rumah kita!'},
+{n:'Ruang Tamu',i:'🛋️',m:'pic',p:1,g:3,ms:[1,3,5,7],say:'👨 Ayah: Lengkapkan gambar ruang tamu kita!'}];
+const COL={cup:['#f59a3c','#f27ca0','#4caf6a','#3f7fd0'],cloth:['#f27ca0','#f6c945','#4a90d9','#4caf6a'],book:['#d9534f','#4a90d9','#f6c945','#4caf6a']};
+function item(t,c,o=1){const s=(vb,w,h,x,pa)=>`<svg viewBox="${vb}" width="${w}" height="${h}" opacity="${o}"${pa?' preserveAspectRatio="none"':''}>${x}</svg>`;
+if(t=='cup')return s('0 0 40 40','1em','1em',`<path d="M5 8h30l-4 28H9z" fill="${c}"/><rect x="3" y="4" width="34" height="7" rx="3.5" fill="${c}" stroke="#0004" stroke-width="1.5"/>`);
+if(t=='cloth')return s('0 0 100 42','100%','100%',`<rect x="2" y="2" width="96" height="38" rx="14" fill="${c}"/><path d="M10 24q40 8 80 0" stroke="#0003" stroke-width="3" fill="none"/>`,1);
+if(t=='book')return s('0 0 40 100','100%','100%',`<rect x="2" y="2" width="36" height="96" rx="4" fill="${c}"/><rect x="2" y="14" width="36" height="6" fill="#fff8"/><rect x="2" y="80" width="36" height="6" fill="#fff8"/>`,1);
+if(t=='spoon')return s('0 0 40 100','100%','100%',`<g fill="${c}" stroke="#667" stroke-width="2"><ellipse cx="20" cy="22" rx="13" ry="19"/><rect x="16" y="38" width="8" height="58" rx="4"/></g>`);
+return s('0 0 40 100','100%','100%',`<path d="M8 4v28q0 8 8 10v54h8V42q8-2 8-10V4h-4v20h-4V4h-4v20h-4V4z" fill="${c}" stroke="#667" stroke-width="2"/>`)}
+const sock=`<path d="M24 50h52v70c0 14 28 20 28 46c0 16-12 24-30 24H48c-24 0-30-18-26-36z" fill="#3f7fd0" stroke="#1d4f95" stroke-width="4"/><rect x="20" y="36" width="60" height="18" rx="5" fill="#2d5fa8"/><text x="36" y="100" font-size="20">⭐</text><text x="30" y="150" font-size="20">⭐</text>`;
+PIC.push(`<rect width="240" height="240" fill="#ffb457"/><g transform="translate(6,20)">${sock}</g><g transform="translate(234,20) scale(-1,1)">${sock}</g>`);
+L.splice(0,L.length,
+{n:'Saiz Sama',i:'👧',m:'match',say:'👧 Adik: Letak barang yang saiznya sama dengan bayang!'},
+{n:'Besar dan Kecil',i:'🧒',m:'bin',say:'👩 Ibu: Masukkan barang besar dan kecil ke bakul yang betul.'},
+{n:'Susun Cawan',i:'🥤',m:'ord',d:'h',asc:0,c:4,it:'cup',col:COL.cup,say:'👩 Ibu: Susun cawan dari besar ke kecil.'},
+{n:'Susun Baju',i:'👕',m:'ord',d:'v',asc:1,c:4,it:'cloth',col:COL.cloth,say:'👧 Adik: Susun baju mengikut warna dan saiz, dari kecil ke besar. Yang kecil di atas!'},
+{n:'Susun Buku Cerita',i:'📚',m:'ord',d:'h',asc:0,c:4,it:'book',col:COL.book,say:'👨 Ayah: Susun buku cerita secara menegak, dari tinggi ke rendah.'},
+{n:'Sudu dan Garpu',i:'🥄',m:'cut',say:'👵 Nenek: Susun sudu dan garpu secara melintang. Sudu dahulu, kemudian garpu!'},
+{n:'Lengkapkan Stokin',i:'🧦',m:'pic',p:2,g:2,ms:[1,2],say:'👦 Abang: Lengkapkan gambar stokin ini!'},
+{n:'Rumah Kita',i:'🏠',m:'pic',p:0,g:2,ms:[0,3],say:'👧 Adik: Lengkapkan gambar rumah kita!'},
+{n:'Ruang Tamu',i:'🛋️',m:'pic',p:1,g:3,ms:[1,3,5,7],say:'👨 Ayah: Lengkapkan gambar ruang tamu kita!'});
+L.splice(0,L.length,
+{n:'Saiz Sama',i:'👧',m:'match',say:'👧 Adik: Letak barang yang saiznya sama dengan bayang!'},
+{n:'Besar dan Kecil',i:'🧒',m:'bin',say:'👩 Ibu: Masukkan barang besar dan kecil ke bakul yang betul.'},
+{n:'Besar ke Kecil ➡️',i:'👨',m:'ord',d:'h',asc:0,c:3,say:'👨 Ayah: Susun melintang, dari besar ke kecil.'},
+{n:'Kecil ke Besar ➡️',i:'👩',m:'ord',d:'h',asc:1,c:4,say:'👩 Ibu: Susun melintang, dari kecil ke besar.'},
+{n:'Besar ke Kecil ⬇️',i:'👴',m:'ord',d:'v',asc:0,c:3,say:'👴 Atuk: Susun menegak, dari besar ke kecil.'},
+{n:'Kecil ke Besar ⬇️',i:'👵',m:'ord',d:'v',asc:1,c:4,say:'👵 Nenek: Susun menegak, dari kecil ke besar.'});
+L.push(
+{n:'Almari Baju',i:'👚',m:'org',say:'👩 Ibu: Susun pakaian ke dalam almari. Baju di rak atas, seluar di tengah, kasut di bawah!',sh:[{n:'Rak Atas: Baju',it:['👕','👗','🧥']},{n:'Rak Tengah: Seluar',it:['👖','🩳']},{n:'Rak Bawah: Kasut',it:['👟','👞','🥾']}]},
+{n:'Almari Dapur',i:'🍽️',m:'org',say:'👵 Nenek: Susun barang dapur. Cawan di atas, pinggan di tengah, periuk di bawah!',sh:[{n:'Rak Atas: Cawan',it:['🥛','☕','🍵']},{n:'Rak Tengah: Pinggan',it:['🍽️','🥣']},{n:'Rak Bawah: Periuk',it:['🍳','🥘']}]},
+{n:'Almari Saiz',i:'🗄️',m:'org',say:'👨 Ayah: Susun ikut saiz. Kecil di atas, sederhana di tengah, besar di bawah!',sh:[{n:'Rak Atas: Kecil',it:['🍎','🧸'],k:0},{n:'Rak Tengah: Sederhana',it:['🥛','👟'],k:1},{n:'Rak Bawah: Besar',it:['🪑','🎈'],k:2}]});
+L.splice(6,3,
+{n:'Almari Pakaian',i:'👚',m:'org',say:'👩 Ibu: Susun barang ke dalam almari. Kasut dengan kasut, beg dengan beg!',sh:[{n:'Kasut',cs:4,it:['👟','👞','🥾']},{n:'Topi',cs:2,it:['👒','🎩']},{n:'Beg',cs:3,it:['🎒','👜']},{n:'Baju',cs:3,it:['👕','👗','🧥']}]},
+{n:'Almari Dapur',i:'🍽️',m:'org',say:'👵 Nenek: Susun barang dapur ke tempat yang betul!',sh:[{n:'Cawan',cs:4,it:['🥛','☕','🍵']},{n:'Sudu',cs:2,it:['🥄','🍴']},{n:'Pinggan',cs:3,it:['🍽️','🥣']},{n:'Periuk',cs:3,it:['🍳','🥘']}]},
+{n:'Almari Saiz',i:'🗄️',m:'org',say:'👨 Ayah: Susun ikut saiz. Kecil, sederhana, besar!',sh:[{n:'Kecil',cs:2,k:0,it:['🍎','🧸']},{n:'Sederhana',cs:2,k:1,it:['🥛','👟']},{n:'Besar',cs:2,k:2,it:['🪑','🎈']}]});
+L.length=7;
+function menu(){$('#game').hidden=true;$('#win').hidden=true;$('#menu').hidden=false;$('#lvs').innerHTML=L.map((l,i)=>`<button class="lv" data-i="${i}"><b>${l.i}</b>Tahap ${i+1}<br>${l.n}<small>${'⭐'.repeat(stars[i]||0)}</small></button>`).join('');document.querySelectorAll('.lv').forEach(b=>b.onclick=()=>{startMus();load(+b.dataset.i)})}
+const say=t=>$('#msg').textContent=t;
+function slot(w,fs,ok,need,h,ht){const d=document.createElement('div');d.className='slot';d.style.cssText=`width:${w}px;height:${ht||w}px;font-size:${fs}px`;d.innerHTML=h||'';d._s={ok,need,got:0};slots.push(d);$('#board').append(d);return d}
+function tok(t,h,w,fs,ht){const d=document.createElement('div');d.className='tok';d.style.cssText=`width:${w}px;height:${ht||w}px;font-size:${fs}px`;d.innerHTML=h;d._t=t;d.onpointerdown=e=>drag(e,d);return d}
+function drag(e,el){if(el.dataset.d)return;e.preventDefault();fx('pick');const r=el.getBoundingClientRect(),c=el.cloneNode(true);c.style.cssText+=`;position:fixed;left:${r.left}px;top:${r.top}px;pointer-events:none;z-index:99;margin:0;transform:scale(1.08)`;document.body.append(c);el.style.opacity=.3;const ox=e.clientX-r.left,oy=e.clientY-r.top;
+const mv=v=>{c.style.left=v.clientX-ox+'px';c.style.top=v.clientY-oy+'px'};
+const up=v=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);removeEventListener('pointercancel',up);c.remove();el.style.opacity='';if(v.type!='pointerup')return;const x=v.clientX-ox+r.width/2,y=v.clientY-oy+r.height/2,s=document.elementsFromPoint(x,y).find(n=>n._s);if(s)place(s,el)};
+addEventListener('pointermove',mv);addEventListener('pointerup',up);addEventListener('pointercancel',up)}
+function place(sl,el){const s=sl._s,t=el._t;if(s.got>=s.need)return;
+if(!s.ok(t)){err++;fx('bad');sl.classList.add('shake');setTimeout(()=>sl.classList.remove('shake'),400);say('Cuba lagi ya! 💪');return}
+s.got++;fx('ok');el.style.visibility='hidden';el.dataset.d=1;say(pick(PR));
+if(s.need==1){sl.innerHTML=el.innerHTML;sl.classList.add('full')}else{const m=document.createElement('span');m.textContent=el.textContent;m.style.fontSize=el.style.fontSize;m.style.lineHeight=1;m.style.margin='2px 6px';sl.querySelector('.in').append(m)}
+if(slots.every(x=>x._s.got>=x._s.need))setTimeout(win,600)}
+function win(){const s=err<=1?3:err<=3?2:1;stars[cur]=Math.max(stars[cur]||0,s);fx('win');$('#stars').textContent='⭐'.repeat(s);$('#wt').textContent='Tahniah! Keluarga bangga dengan anda! 🎉';$('#nx').hidden=cur>=L.length-1;$('#win').hidden=false}
+$('#nx').onclick=()=>load(cur+1);$('#mn').onclick=menu;
+function load(i){cur=i;err=0;slots=[];const l=L[i];$('#menu').hidden=true;$('#win').hidden=true;$('#game').hidden=false;$('#ttl').textContent=`Tahap ${i+1}: ${l.n}`;say(l.say);
+const b=$('#board'),t=$('#tray'),t0=$('#tray0');b.innerHTML=t.innerHTML=t0.innerHTML='';t.className='';b.className='';b.style.cssText='';$('#stage').className=l.d=='v'&&!l.it?'v':'';b.classList.toggle('col',l.d=='v'&&!!l.it);let T=[];
+if(l.m=='match'){sh(E).slice(0,3).forEach(e=>{const k=pick([0,1,2]),px=S(k);slot(px*F,px,t=>t.e==e&&t.k==k,1,`<i class="gh">${e}</i>`);T.push({e,k},{e,k:(k+1+(Math.random()*2|0))%3})});T=sh(T).map(o=>tok(o,o.e,S(o.k)*F,S(o.k)))}
+else if(l.m=='bin'){b.style.flexDirection='column';b.style.alignItems='stretch';const es=sh(E);[['Besar',2],['Kecil',0]].forEach(([n,k])=>{const d=slot(0,16,t=>t.k==k,3,`<b>${n}</b><div class="in"></div>`);d.className='slot bin';d.style.width='100%';d.style.height='';d.style.flex='none'});es.forEach((e,j)=>{const k=j<3?2:0;T.push(tok({e,k},e,S(k)*F,S(k)))});T=sh(T)}
+else if(l.m=='ord'){const e=pick(E),u=l.c==3?[0,2,3]:[0,1,2,3],it=l.it,C=l.col,D=k=>{const px=S(k);return it=='cloth'?[px*1.5,px*.63]:it=='book'?[40*K,px*1.4]:[px*F,px*F]},H=(k,o)=>it?item(it,C[k],o):e;u.forEach((_,j)=>{const k=l.asc?u[j]:u[u.length-1-j],d=D(k);slot(d[0],S(k),t=>t.k==k,1,it?H(k,.3):`<i class="gh">${e}</i>`,d[1])});T=sh(u).map(k=>{const d=D(k);return tok({k},H(k,1),d[0],S(k),d[1])})}
+else if(l.m=='org'){$('#stage').className='room';t.className='floor';b.className='cab';l.sh.forEach((s,i)=>{const k=s.k??1,fs=(s.k==null?46:SZ[k]*.9)*K,d=slot(0,12,x=>x.s==i,s.it.length,`<b>${s.n}</b><div class="in"></div>`);d.className='slot cub';d.style.cssText=`grid-column:span ${s.cs}`;s.it.forEach(e=>{const o=tok({s:i},e,fs*1.1,fs);o.style.transform=`rotate(${Math.random()*28-14|0}deg)`;o.style.margin=`${Math.random()*8|0}px`;T.push(o)})});T=sh(T);const h=Math.ceil(T.length/2);T.slice(0,h).forEach(x=>t0.append(x));T=T.slice(h)}else if(l.m=='cut'){const ty=['spoon','spoon','fork','fork','fork'],w=38*K,h=w*2.6;ty.forEach(e=>slot(w,16,t=>t.e==e,1,item(e,'#9aa0a8',.3),h));T=sh(ty).map(e=>tok({e},item(e,'#b8bcc4',1),w,16,h))}else{const g=l.g,W=Math.min(innerWidth-50,320),C=W/g,P=PIC[l.p],cell=n=>`<svg viewBox="${n%g*240/g} ${(n/g|0)*240/g} ${240/g} ${240/g}" width="${C}" height="${C}">${P}</svg>`;b.className='grid';b.style.gridTemplateColumns=`repeat(${g},${C}px)`;
+for(let n=0;n<g*g;n++){if(l.ms.includes(n))slot(C,20,t=>t.n==n,1,'<i class="gh">❔</i>');else{const d=document.createElement('div');d.className='cell';d.innerHTML=cell(n);b.append(d)}}
+T=sh(l.ms).map(n=>tok({n},cell(n),C,20))}
+T.forEach(x=>t.append(x))}
+menu();
+</script></body></html>
